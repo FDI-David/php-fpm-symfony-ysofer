@@ -13,6 +13,18 @@ USER root
 # Réglages PHP ajoutés par-dessus ceux de l'image de base
 COPY php.ini /usr/local/etc/php/conf.d/zz-app.ini
 
+################
+# PDO SQL SERV #
+################
+
+RUN curl https://packages.microsoft.com/keys/microsoft.asc | apt-key add - 
+RUN curl https://packages.microsoft.com/config/ubuntu/20.04/prod.list > /etc/apt/sources.list.d/mssql-release.list 
+RUN apt-get update 
+RUN ACCEPT_EULA=Y apt-get -y --no-install-recommends install msodbcsql17 unixodbc-dev 
+RUN pecl install sqlsrv
+RUN pecl install pdo_sqlsrv
+RUN docker-php-ext-enable sqlsrv pdo_sqlsrv
+
 # Extensions supplémentaires si besoin (décommentez et complétez) :
 # COPY --from=mlocati/php-extension-installer:2 /usr/bin/install-php-extensions /usr/local/bin/
 # RUN install-php-extensions nom_extension
