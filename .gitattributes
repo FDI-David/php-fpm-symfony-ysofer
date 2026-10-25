@@ -1,0 +1,5 @@
+# Les scripts doivent garder des fins de ligne Unix, même si le dépôt est cloné sous Windows
+*.sh text eol=lf
+Dockerfile text eol=lf
+*.ini text eol=lf
+*.yml text eol=lf
